@@ -14,20 +14,19 @@ export default {
     }
   },
   created(){
-    this.getUserInfo();
+    // this.getUserInfo();
   },
   methods:{
     getUserInfo(){
-      this.axios.get('/user/userinfo')
-      .then(({data})=>{
-        console.log(data);
-        if(data.error === 0){
-          this.userInfo = data.data;
-        }else{
-          this.userInfo = {};
-        }
-        
-      });
+      this.userInfo = null;
+      // this.axios.get('/user/userinfo')
+      // .then(({data})=>{
+      //   if(data.error === 0){
+      //     this.userInfo = data.data;
+      //   }else{
+      //     this.userInfo = {};
+      //   }   
+      // });
     }
   }
 }

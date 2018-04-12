@@ -3,7 +3,6 @@
     "data":{
         "userid": "@id()",
         "username": "@cname()",
-        "sex": "man",
         "date": "@date()",
         "avatar": "@image('200x200','red','#fff','avatar')",
         "description": "@paragraph()",
