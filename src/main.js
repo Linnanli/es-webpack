@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import axios from './vue-axios'
 import vueFundebug from './vue-fundebug'
+// import 'lib-flexible/flexible.js'
 
 Vue.config.productionTip = false
 

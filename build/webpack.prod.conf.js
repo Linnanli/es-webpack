@@ -10,7 +10,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-
 const env = require('../config/prod.env')
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -30,6 +29,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
+      'VERSION': config.version,
       'process.env': env
     }),
     new UglifyJsPlugin({
@@ -62,7 +62,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: config.build.index,
-      template: 'index.html',
+      template: path.resolve(__dirname, '../src/page/index.js'),//初步方案
       inject: true,
       minify: {
         removeComments: true,
