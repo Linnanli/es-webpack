@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 const isDev = process.env.NODE_ENV === 'development' ? true : false
 const scriptPath = "https://js.fundebug.cn/fundebug.0.3.6.min.js"
-const apikey = "3213c4f5cfcfa6862e653ac4e2b2be46be3bfe316dee8df15776d2d6de6cafa5"
+const apikey = "3213c4f5cfcfa6862e653ac4e2b2be46be3bfe316dee8df15776d2d6de6cafa5a"
 
 //加载脚本
 function loadScript(url, apikey) {

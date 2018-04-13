@@ -2,6 +2,8 @@
 
 改造vue-cli,使用mockjs搭建mock server
 
+接入第三方平台进行js异常监控
+
 开发环境
 
 ```
