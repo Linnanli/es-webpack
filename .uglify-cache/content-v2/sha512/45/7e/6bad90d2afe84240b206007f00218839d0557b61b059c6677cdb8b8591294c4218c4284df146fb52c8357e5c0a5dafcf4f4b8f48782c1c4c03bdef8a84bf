@@ -1,0 +1,1 @@
+{"map":"{\"version\":3,\"sources\":[\"C:/Users/84505/Documents/GitHub/mock-server-demo/src\\\\page\\\\detail\\\\index.js\"],\"names\":[\"console\",\"log\"],\"mappings\":\"qCAAAA,QAAQC,IAAI\",\"sourcesContent\":[\"console.log(1);\"]}","code":"webpackJsonp([2],{r3p3:function(o,n){console.log(1)}},[\"r3p3\"]);","extractedComments":[]}

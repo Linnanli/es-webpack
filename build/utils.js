@@ -190,7 +190,8 @@ exports.generateHTMLPlugin = function ({ entryList = {}, filename, template, dep
     HTMLPlugins.push({
       filename: finishFilename,
       template: finishTemplate,
-      chunks: chunks
+      chunks: chunks,
+      inject: false
     });
   }
 

@@ -1,6 +1,12 @@
-const content = require('./index.ejs');
-const layoutHeader = require('layout/header.ejs');
+const content = require('./index.ejs')
+const header = require('layout/header.ejs')
+const script = require('layout/script.ejs')
 
-module.exports = content({
-    layoutHeader: layoutHeader({ title:'web app page1'})
-});
+module.exports = function (params) {
+    return content({
+        script: script({ chunks: ['manifest','vendor', 'app'], chuncksEntry: params.htmlWebpackPlugin.files.chunks }),
+        layout: {
+            header: header({ title: 'detail' })
+        }
+    });;
+}

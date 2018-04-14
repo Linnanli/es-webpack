@@ -1,0 +1,6 @@
+
+<% chunks.forEach(function(name,index){ %>
+    <% if(typeof chuncksEntry[name] === 'object'){ %>
+        <script type="text/javascript" src="<%=chuncksEntry[name].entry%>"></script>
+    <% } %>
+<% }) %>
