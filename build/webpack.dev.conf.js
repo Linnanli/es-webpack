@@ -9,6 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const page = require('./webpack.page.conf');
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -28,6 +29,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
       ],
     },
+    inline:true,
     hot: true,
     contentBase: false, // since we use CopyWebpackPlugin.
     compress: true,
@@ -46,6 +48,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }
   },
   plugins: [
+    ...page.getHTMLPlugin(true),
     new webpack.DefinePlugin({
       'VERSION': config.version,
       'process.env': require('../config/dev.env')
@@ -54,11 +57,11 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: path.resolve(__dirname,'../src/page/index.js'),//初步方案
-      inject: true
-    }),
+    // new HtmlWebpackPlugin({
+    //   filename: 'index.html',
+    //   template: path.resolve(__dirname,'../src/index.js'),//初步方案
+    //   inject: true
+    // }),
     // copy custom static assets
     new CopyWebpackPlugin([
       {

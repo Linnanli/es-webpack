@@ -11,6 +11,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const env = require('../config/prod.env')
+const page = require('./webpack.page.conf');
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -27,6 +28,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
   plugins: [
+    ...page.getHTMLPlugin(false),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'VERSION': config.version,
@@ -39,7 +41,8 @@ const webpackConfig = merge(baseWebpackConfig, {
         }
       },
       sourceMap: config.build.productionSourceMap,
-      parallel: true
+      parallel: true,
+      cache:'.uglify-cache'
     }),
     // extract css into its own file
     new ExtractTextPlugin({
@@ -60,20 +63,20 @@ const webpackConfig = merge(baseWebpackConfig, {
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: config.build.index,
-      template: path.resolve(__dirname, '../src/page/index.js'),//初步方案
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
-    }),
+    // new HtmlWebpackPlugin({
+    //   filename: config.build.index,
+    //   template: path.resolve(__dirname, '../src/index.js'),//初步方案
+    //   inject: true,
+    //   minify: {
+    //     removeComments: true,
+    //     collapseWhitespace: true,
+    //     removeAttributeQuotes: true
+    //     // more options:
+    //     // https://github.com/kangax/html-minifier#options-quick-reference
+    //   },
+    //   // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+    //   chunksSortMode: 'dependency'
+    // }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
     // enable scope hoisting
@@ -81,7 +84,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks (module) {
+      minChunks(module) {
         // any required modules inside node_modules are extracted to vendor
         return (
           module.resource &&

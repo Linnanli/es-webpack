@@ -1,8 +1,10 @@
 'use strict'
 const path = require('path')
+const fs = require('fs');
 const config = require('../config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const packageConfig = require('../package.json')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 exports.assetsPath = function (_path) {
   const assetsSubDirectory = process.env.NODE_ENV === 'production'
@@ -98,4 +100,99 @@ exports.createNotifierCallback = () => {
       icon: path.join(__dirname, 'logo.png')
     })
   }
+}
+
+
+//判断是否存在目录
+function fsExistsAccess(path) {
+  try {
+    fs.accessSync(path, fs.F_OK);
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
+
+exports.generateEntry = function ({ pageDir, filename, insetBefore }) {
+  if (typeof pageDir !== 'string')
+    throw new Error('请传入目录绝对路径');
+
+  let pagePath = path.resolve(__dirname, pageDir),
+    isExists = fsExistsAccess(pageDir),
+    entryPath = {};
+
+  if (isExists) {
+    let pageFile = fs.readdirSync(pageDir),
+      finishFilename = '',
+      entryStr = '',
+      chunckName = '';
+
+    pageFile.forEach(function (name, index) {
+      if (typeof filename === 'function') {
+        finishFilename = filename.call(name, name);
+      } else if (typeof filename === 'string') {
+        finishFilename = filename;
+      } else {
+        finishFilename = 'index.js';
+      }
+
+      entryStr = path.join(pageDir, `${name}/${filename}`);
+
+      //向指定入口添加chunck,如: ['babel-polyfill','main.js']
+      if (typeof insetBefore === 'function') {
+        chunckName = insetBefore(name);
+        if (typeof chunckName === 'string') {
+          entryPath[name] = [entryStr];
+          entryPath[name].unshift(chunckName);
+        }
+      } else {
+        entryPath[name] = entryStr;
+      }
+
+    });
+  }
+
+  return entryPath;
+}
+
+exports.generateHTMLPlugin = function ({ entryList = {}, filename, template, dependChunks }) {
+  let chunks,
+    finishFilename = '',
+    finishTemplate = '',
+    HTMLPlugins = [];
+
+  for (let name in entryList) {
+    chunks = [];
+    //判断文件名称
+    if (typeof filename === 'function') {
+      finishFilename = filename.call(name, name);
+    } else if (typeof filename === 'string') {
+      finishFilename = filename;
+    } else {
+      finishFilename = 'index.html';
+    }
+
+    if (typeof template === 'function') {
+      finishTemplate = template.call(name, name);
+    } else if (typeof template === 'string') {
+      finishTemplate = template;
+    } else {
+      finishTemplate = 'index.html';
+    }
+
+    //添加依赖块
+    if (dependChunks) {
+      chunks = chunks.concat(dependChunks, name);
+    } else {
+      chunks.push(name);
+    }
+
+    HTMLPlugins.push({
+      filename: finishFilename,
+      template: finishTemplate,
+      chunks: chunks
+    });
+  }
+
+  return HTMLPlugins;
 }

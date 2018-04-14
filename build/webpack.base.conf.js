@@ -3,18 +3,15 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const page = require('./webpack.page.conf');
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-
-
 module.exports = {
   context: path.resolve(__dirname, '../'),
-  entry: {
-    app: './src/main.js'
-  },
+  entry: page.getEntryList(),
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
@@ -27,6 +24,8 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'layout': resolve('src/layout'),
+      'page': resolve('src/page')
     }
   },
   module: {
