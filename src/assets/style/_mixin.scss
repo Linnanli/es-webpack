@@ -1,0 +1,6 @@
+/* ================ 设置背景图片 ===================*/
+@mixin bg-img($path){
+    background-image: url($path);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}

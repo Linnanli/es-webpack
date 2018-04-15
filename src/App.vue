@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <img class="avatar" :src="userInfo.avatar" @click="getUserInfo()">
-    <p>{{userInfo.username}}</p>
-    <p>{{userInfo.date}}</p>
-    <p>{{userInfo.email}}</p>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -35,29 +32,5 @@ export default {
 </script>
 
 <style lang="scss">
-@function rem($px, $base-font-size: 75px) {
-    @return ($px / $base-font-size) + rem;
-}
-html,body{
-  margin: 0;
-  padding: 0;
-}
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-
-  .avatar{
-    width: rem(200px);
-    height: rem(200px);
-    border-radius: 50%;
-  }
-  p{
-    font-size: rem(24px)
-  }
-}
-
+@import '../src/assets/style/reset.scss';
 </style>

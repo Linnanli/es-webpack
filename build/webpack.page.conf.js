@@ -40,7 +40,6 @@ exports.getHTMLPlugin = function (isDev){
     let HTMLPlugins = [];
     
     HTMLPlugin.forEach((item,index)=>{
-        console.log(item)
         if (isDev) {
             HTMLPlugins.push(new HtmlWebpackPlugin(item));
         }else{
@@ -53,8 +52,6 @@ exports.getHTMLPlugin = function (isDev){
             HTMLPlugins.push(new HtmlWebpackPlugin(item));
         }
     });
-    
-    console.log(HTMLPlugins);
     return HTMLPlugins;
 }
 
