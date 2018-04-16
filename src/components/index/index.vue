@@ -3,7 +3,7 @@
       <header class="header">
           <div class="icon">
               <span class="icon-img"></span>
-              <strong class="icon-text">{{title}}</strong>
+              <strong class="icon-text">{{title}}{{test.a}}</strong>
           </div>
           <div class="login">
               <span class="login-left">登录</span>
@@ -17,8 +17,16 @@ export default {
   name: "index",
   data() {
     return {
-        title:'考拉记账'
-    };
+        title:'考拉记账',
+        test:{
+          a:'1'
+        }
+    }
+  },
+  created(){
+    setTimeout(() => {
+      this.test = null;
+    }, 200);
   }
 };
 </script>

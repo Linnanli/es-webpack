@@ -1,6 +1,7 @@
 'use strict'
 const path = require('path')
-const fs = require('fs');
+const fs = require('fs')
+const webpack = require('webpack')
 const config = require('../config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const packageConfig = require('../package.json')
@@ -120,6 +121,22 @@ function fsExistsAccess(path) {
   return true;
 }
 
+//判断entry配置是否是js入口文件
+function isJsEntryFile(entry,suffix = ['js']) {
+  let reg = new RegExp(`\.(${suffix.join('|')})$`);
+
+  if(typeof entry === 'string') return reg.test(entry);
+  
+  if(entry instanceof Array){
+    for (let index = 0; index < entry.length; index++) {
+      if (!reg.test(entry[index])) return false;
+    }
+  }
+
+  return true;
+}
+
+//生成各个入口配置
 exports.generateEntry = function ({ pageDir, filename, insetBefore }) {
   if (typeof pageDir !== 'string')
     throw new Error('请传入目录绝对路径');
@@ -167,8 +184,14 @@ exports.generateHTMLPlugin = function ({ entryList = {}, filename, template, dep
     finishFilename = '',
     finishTemplate = '',
     HTMLPlugins = [];
-
+  // console.log(JSON.stringify(entryList))
   for (let name in entryList) {
+    // console.log(entryList[name]);
+    // console.log(name)
+    let isJS = isJsEntryFile(entryList[name]);
+    // console.log(isJS)
+    if (!isJS ) continue;
+    // console.log(entryList[name]);
     chunks = [];
     //判断文件名称
     if (typeof filename === 'function') {
@@ -197,10 +220,37 @@ exports.generateHTMLPlugin = function ({ entryList = {}, filename, template, dep
     HTMLPlugins.push({
       filename: finishFilename,
       template: finishTemplate,
-      chunks: chunks,
+      // chunks: chunks,
       inject: false
     });
   }
 
   return HTMLPlugins;
+}
+
+exports.generateCommonChunckPlugin = function (entryList = {}){
+    let plugins = [];
+  // console.log(entryList)
+    for (const name in entryList) {
+      console.log(name)
+      plugins.push(
+        new webpack.optimize.CommonsChunkPlugin({
+          name: name+'-vendor',
+          chunks: [name],
+          minChunks: function (module, count) {
+            return (
+              module.resource &&
+              /\.js$/.test(module.resource) &&
+              module.resource.indexOf('css-loader') === -1 &&//去除被打包进来的css-loader
+              module.resource.indexOf(
+                path.join(__dirname, '../node_modules')
+              ) === 0
+            )
+          }
+        })
+      );
+
+    }
+
+  return plugins;
 }

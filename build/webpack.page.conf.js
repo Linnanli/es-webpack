@@ -1,6 +1,8 @@
 const utils = require('./utils')
 const path = require('path')
+const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const dependentChunck = require('../dependent')
 
 //生成入口文件配置
 let entryList = utils.generateEntry({
@@ -8,13 +10,10 @@ let entryList = utils.generateEntry({
     filename: 'index.js'
 });
 entryList.app = './src/main.js';
-
-exports.getEntryList = function(){
-    return entryList;
-};
+entryList = merge(entryList, dependentChunck);
 
 //生成HTML插件配置
-var HTMLPlugin = utils.generateHTMLPlugin({
+let HTMLPlugin = utils.generateHTMLPlugin({
     entryList: entryList,
     filename: function (name) {
         //如果需要后端模板引擎渲染,可以将模板文件存放到指定的文件夹中
@@ -32,10 +31,24 @@ var HTMLPlugin = utils.generateHTMLPlugin({
         } else {
             return path.resolve(__dirname, `../src/page/${name}/template.js`);
         }
-    },
-    dependChunks: ['manifest', 'vendor']
+    }
+    // dependChunks: ['manifest', 'vendor']
 });
 
+//生成提取公用代码配置
+let commonChunck = utils.generateCommonChunckPlugin(entryList);
+
+//获取入口配置
+exports.getEntryList = function(){
+    return entryList;
+};
+
+//获取commonChunckPlugin配置
+exports.getCommonChunckPlugin = function () {
+    return commonChunck;
+};
+
+//获取html plugin配置
 exports.getHTMLPlugin = function (isDev){
     let HTMLPlugins = [];
     

@@ -9,7 +9,7 @@ module.exports = function(params) {
     // console.log(params.htmlWebpackPlugin.files.chunks.detail.css)
     return content({
         header: header({ title: 'detail' }),
-        script: script({ chunks: ['manifest', 'detail'], chuncksEntry: params.htmlWebpackPlugin.files.chunks}),
+        script: script({ chunks: ['manifest','zepto','detail'], chuncksEntry: params.htmlWebpackPlugin.files.chunks}),
         css: css({ chuncksEntry: params.htmlWebpackPlugin.files.chunks.detail.css }),
         layout:{}
     });;

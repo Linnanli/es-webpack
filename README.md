@@ -1,4 +1,4 @@
-# mock-server-demo
+# es-webpack
 
 改造vue-cli,使用mockjs搭建mock server
 
