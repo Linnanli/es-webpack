@@ -3,6 +3,7 @@ const header = require('layout/header.ejs')
 const script = require('layout/script.ejs')
 const css = require('layout/css.ejs')
 
+// console.log(util.loadMinified)
 module.exports = function(params) {
     // console.log(params.htmlWebpackPlugin)
     // console.log(params.htmlWebpackPlugin.files.chunks)

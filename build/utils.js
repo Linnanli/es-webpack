@@ -1,6 +1,7 @@
 'use strict'
 const path = require('path')
 const fs = require('fs')
+const UglifyJS = require('uglify-es')
 const webpack = require('webpack')
 const config = require('../config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -248,4 +249,11 @@ exports.generateCommonChunckPlugin = function (entryList = {}){
     }
 
   return plugins;
+}
+
+exports.loadMinified = function (filePath) {
+  const code = fs.readFileSync(filePath, 'utf-8')
+  const result = UglifyJS.minify(code)
+  if (result.error) return ''
+  return result.code
 }
