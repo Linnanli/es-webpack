@@ -1,4 +1,4 @@
-const content = require('./index.ejs')
+const content = require('layout/index.ejs')
 const header = require('layout/header.ejs')
 const script = require('layout/script.ejs')
 const css = require('layout/css.ejs')

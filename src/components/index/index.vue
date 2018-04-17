@@ -24,9 +24,6 @@ export default {
     }
   },
   created(){
-    setTimeout(() => {
-      this.test = null;
-    }, 200);
   }
 };
 </script>

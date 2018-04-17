@@ -36,7 +36,7 @@ let HTMLPlugin = utils.generateHTMLPlugin({
 });
 
 //生成提取公用代码配置
-let commonChunck = utils.generateCommonChunckPlugin(entryList);
+// let commonChunck = utils.generateCommonChunckPlugin(entryList);
 
 //获取入口配置
 exports.getEntryList = function(){
@@ -44,9 +44,9 @@ exports.getEntryList = function(){
 };
 
 //获取commonChunckPlugin配置
-exports.getCommonChunckPlugin = function () {
-    return commonChunck;
-};
+// exports.getCommonChunckPlugin = function () {
+//     return commonChunck;
+// };
 
 //获取html plugin配置
 exports.getHTMLPlugin = function (isDev){

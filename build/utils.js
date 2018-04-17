@@ -184,14 +184,11 @@ exports.generateHTMLPlugin = function ({ entryList = {}, filename, template, dep
     finishFilename = '',
     finishTemplate = '',
     HTMLPlugins = [];
-  // console.log(JSON.stringify(entryList))
-  for (let name in entryList) {
-    // console.log(entryList[name]);
-    // console.log(name)
+
+    for (let name in entryList) {
+      
     let isJS = isJsEntryFile(entryList[name]);
-    // console.log(isJS)
     if (!isJS ) continue;
-    // console.log(entryList[name]);
     chunks = [];
     //判断文件名称
     if (typeof filename === 'function') {
@@ -230,9 +227,7 @@ exports.generateHTMLPlugin = function ({ entryList = {}, filename, template, dep
 
 exports.generateCommonChunckPlugin = function (entryList = {}){
     let plugins = [];
-  // console.log(entryList)
     for (const name in entryList) {
-      console.log(name)
       plugins.push(
         new webpack.optimize.CommonsChunkPlugin({
           name: name+'-vendor',

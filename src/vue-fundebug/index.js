@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import libFundebug from '../public/lib/fundebug.js'
+import libFundebug from '../public/lib/asyncFundebug.js'
 
 //返回拼接错误信息
 function formatComponentName(vm) {
@@ -12,7 +12,6 @@ const vueFundebug = {
     install() {
         libFundebug.init(() => {
             Vue.config.errorHandler = function (err, vm, info) {
-                // console.log(err)
                 var componentName = formatComponentName(vm);
                 var propsData = vm.$options && vm.$options.propsData;
                 fundebug.notifyError(err, {

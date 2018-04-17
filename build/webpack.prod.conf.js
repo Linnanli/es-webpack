@@ -42,7 +42,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       },
       sourceMap: config.build.productionSourceMap,
       parallel: true,
-      cache:'.uglify-cache'
+      cache:'node_modules/.uglify-cache'
     }),
     // extract css into its own file
     new ExtractTextPlugin({

@@ -1,6 +1,8 @@
 # es-webpack
 
-改造vue-cli,使用mockjs搭建mock server
+### 使用mockjs搭建mock server
+
+便于前后端分离,前端自己搭建server
 
 接入第三方平台进行js异常监控
 
