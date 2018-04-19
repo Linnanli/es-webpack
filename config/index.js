@@ -3,12 +3,9 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-var packageJson = require('../package.json');
 
 module.exports = {
-  version: JSON.stringify(packageJson.version),
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',

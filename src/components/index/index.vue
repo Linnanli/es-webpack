@@ -34,6 +34,7 @@ export default {
 }
 
 .header {
+  // width: rem(750px);
   width: 100%;
   height: rem(100px);
   background-color: #5591ff;
@@ -41,6 +42,7 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin:0 auto;
 }
 .icon {
     margin-left: rem(30px);

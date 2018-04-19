@@ -1,21 +1,16 @@
-const content = require('layout/index.ejs')
-const header = require('layout/header.ejs')
-const script = require('layout/script.ejs')
-const css = require('layout/css.ejs')
-const path = require('path')
+const content = require('public/layout/index.ejs')
+const header = require('public/layout/header.ejs')
+const script = require('public/layout/script.ejs')
+const css = require('public/layout/css.ejs')
 
-// console.log(util.loadMinified)
-module.exports = function(params) {
-    // console.log(params.htmlWebpackPlugin)
-    // console.log(params.htmlWebpackPlugin.files.chunks)
-    // console.log(params.htmlWebpackPlugin.files.chunks.detail.css)
+module.exports = function ({ htmlWebpackPlugin: { options, files } }) {
+    let { flexible } = options;
     return content({
-        header: header({ title: 'detail' }),
-        script: script({ chunks: ['manifest','zepto','detail'], chuncksEntry: params.htmlWebpackPlugin.files.chunks}),
-        css: css({ chuncksEntry: params.htmlWebpackPlugin.files.chunks.detail.css }),
+        header: header({ title: 'detail', flexible: flexible }),
+        script: script({ chunks: ['manifest','zepto','detail'], chuncksEntry: files.chunks}),
+        css: css({ chuncksEntry: files.chunks.detail.css }),
         layout:{
-            dirname: __dirname,
-            root: '<div class="main">' + path.join(PATH_SRC,'/page/detail/test.json')+'</div>'
+            root: '<div class="main"></div>'
         }
     });;
 }

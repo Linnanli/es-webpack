@@ -1,16 +1,14 @@
-const content = require('layout/index.ejs')
-const header = require('layout/header.ejs')
-const script = require('layout/script.ejs')
-const css = require('layout/css.ejs')
+const content = require('public/layout/index.ejs')
+const header = require('public/layout/header.ejs')
+const script = require('public/layout/script.ejs')
+const css = require('public/layout/css.ejs')
 
-module.exports = function (params) {
-    // console.log(params.htmlWebpackPlugin)
-    // console.log(params.htmlWebpackPlugin.files.chunks)
-    // console.log(params.htmlWebpackPlugin.files.chunks.detail.css)
+module.exports = function ({ htmlWebpackPlugin: { options, files } }) {
+    let { flexible } = options;
     return content({
-        header: header({ title: 'login' }),
-        script: script({ chunks: ['manifest', 'zepto', 'login'], chuncksEntry: params.htmlWebpackPlugin.files.chunks }),
-        css: css({ chuncksEntry: params.htmlWebpackPlugin.files.chunks.detail.css }),
+        header: header({ title: 'login', flexible: flexible}),
+        script: script({ chunks: ['manifest', 'zepto', 'login'], chuncksEntry: files.chunks }),
+        css: css({ chuncksEntry: files.chunks.detail.css }),
         layout: {}
     });;
 }

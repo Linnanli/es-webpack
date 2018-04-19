@@ -34,7 +34,7 @@ exports.cssLoaders = function (options) {
   }
 
   // generate loader string to be used with extract text plugin
-  function generateLoaders (loader, loaderOptions) {
+  function generateLoaders(loader, loaderOptions) {
     const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
 
     if (loader) {
@@ -123,12 +123,12 @@ function fsExistsAccess(path) {
 }
 
 //判断entry配置是否是js入口文件
-function isJsEntryFile(entry,suffix = ['js']) {
+function isJsEntryFile(entry, suffix = ['js']) {
   let reg = new RegExp(`\.(${suffix.join('|')})$`);
 
-  if(typeof entry === 'string') return reg.test(entry);
-  
-  if(entry instanceof Array){
+  if (typeof entry === 'string') return reg.test(entry);
+
+  if (entry instanceof Array) {
     for (let index = 0; index < entry.length; index++) {
       if (!reg.test(entry[index])) return false;
     }
@@ -181,19 +181,18 @@ exports.generateEntry = function ({ pageDir, filename, insetBefore }) {
 }
 
 exports.generateHTMLPlugin = function ({ entryList = {}, filename, template, dependChunks }) {
-  let chunks,
+  let params,
     finishFilename = '',
     finishTemplate = '',
     HTMLPlugins = [];
 
-    for (let name in entryList) {
-      
-    let isJS = isJsEntryFile(entryList[name]);
-    if (!isJS ) continue;
-    chunks = [];
+  for (let name in entryList) {
+
+    if (!isJsEntryFile(entryList[name])) continue;
+    params = {};
     //判断文件名称
     if (typeof filename === 'function') {
-      finishFilename = filename.call(name, name);
+      finishFilename = filename.call(params, name);
     } else if (typeof filename === 'string') {
       finishFilename = filename;
     } else {
@@ -201,59 +200,55 @@ exports.generateHTMLPlugin = function ({ entryList = {}, filename, template, dep
     }
 
     if (typeof template === 'function') {
-      finishTemplate = template.call(name, name);
+      finishTemplate = template.call(params, name);
     } else if (typeof template === 'string') {
       finishTemplate = template;
     } else {
       finishTemplate = 'index.html';
     }
 
-    //添加依赖块
-    if (dependChunks) {
-      chunks = chunks.concat(dependChunks, name);
-    } else {
-      chunks.push(name);
-    }
+    params.filename = finishFilename;
+    params.template = finishTemplate;
+    params.inject = false;
 
-    HTMLPlugins.push({
-      filename: finishFilename,
-      template: finishTemplate,
-      // chunks: chunks,
-      inject: false
-    });
+    HTMLPlugins.push(params);
   }
 
   return HTMLPlugins;
 }
 
-exports.generateCommonChunckPlugin = function (entryList = {}){
-    let plugins = [];
-    for (const name in entryList) {
-      plugins.push(
-        new webpack.optimize.CommonsChunkPlugin({
-          name: name+'-vendor',
-          chunks: [name],
-          minChunks: function (module, count) {
-            return (
-              module.resource &&
-              /\.js$/.test(module.resource) &&
-              module.resource.indexOf('css-loader') === -1 &&//去除被打包进来的css-loader
-              module.resource.indexOf(
-                path.join(__dirname, '../node_modules')
-              ) === 0
-            )
-          }
-        })
-      );
+exports.generateCommonChunckPlugin = function (entryList = {}) {
+  let plugins = [];
+  for (const name in entryList) {
+    plugins.push(
+      new webpack.optimize.CommonsChunkPlugin({
+        name: name + '-vendor',
+        chunks: [name],
+        minChunks: function (module, count) {
+          return (
+            module.resource &&
+            /\.js$/.test(module.resource) &&
+            module.resource.indexOf('css-loader') === -1 &&//去除被打包进来的css-loader
+            module.resource.indexOf(
+              path.join(__dirname, '../node_modules')
+            ) === 0
+          )
+        }
+      })
+    );
 
-    }
+  }
 
   return plugins;
 }
 
-exports.loadMinified = function (filePath) {
-  const code = fs.readFileSync(filePath, 'utf-8')
-  const result = UglifyJS.minify(code)
-  if (result.error) return ''
-  return result.code
+exports.loadMinified = function (filePath, isUglifyJS) {
+  const code = fs.readFileSync(filePath, 'utf-8');
+  if (isUglifyJS) {
+    const result = UglifyJS.minify(code)
+    if (result.error) return ''
+    return result.code
+  }
+
+  return code;
 }

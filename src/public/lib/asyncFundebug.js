@@ -10,7 +10,7 @@ function loadScript() {
     script.src = scriptPath;
     script.setAttribute("apikey", apikey);//fundebug key
     script.setAttribute("releasestage", process.env.NODE_ENV);
-    script.setAttribute('appversion',VERSION);
+    script.setAttribute('appversion', APP_VERSION);
 
     document.body.appendChild(script);  
     return script;

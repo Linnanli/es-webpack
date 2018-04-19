@@ -17,7 +17,7 @@ const vueFundebug = {
                 fundebug.notifyError(err, {
                     metaData:
                         {
-                            appVersion: VERSION,
+                            appVersion: APP_VERSION,
                             componentName: componentName,
                             propsData: propsData,
                             info: info

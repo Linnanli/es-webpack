@@ -3,6 +3,8 @@ const path = require('path')
 const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const dependentChunck = require('../dependent')
+const inlineScript = require('../dependent/inline-script')
+
 
 //生成入口文件配置
 let entryList = utils.generateEntry({
@@ -16,8 +18,6 @@ entryList = merge(entryList, dependentChunck);
 let HTMLPlugin = utils.generateHTMLPlugin({
     entryList: entryList,
     filename: function (name) {
-        //如果需要后端模板引擎渲染,可以将模板文件存放到指定的文件夹中
-        // filename: `../../view/frontend/${page}.php`, // 通过控制相对路径来确定模板的根目录
         if (name === 'app') {
             return `index.html`;
         } else {
@@ -52,6 +52,7 @@ exports.getHTMLPlugin = function (isDev){
     let HTMLPlugins = [];
     
     HTMLPlugin.forEach((item,index)=>{
+        Object.assign(item, inlineScript);
         if (isDev) {
             HTMLPlugins.push(new HtmlWebpackPlugin(item));
         }else{

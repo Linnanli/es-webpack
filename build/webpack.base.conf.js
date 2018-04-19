@@ -27,7 +27,6 @@ module.exports = {
       '@': resolve('src'),
       'component': resolve('src/components'),
       'public': resolve('src/public'),
-      'layout': resolve('src/public/layout'),
       'page': resolve('src/page'),
       'assets':resolve('src/assets')
     }
@@ -78,10 +77,7 @@ module.exports = {
     ]
   },
   plugins:[
-    new webpack.DefinePlugin({
-      'VERSION': config.version,
-      'PATH_SRC': JSON.stringify(path.resolve(__dirname,'../src'))
-    })
+    new webpack.DefinePlugin(require('../config/global.defind'))
   ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
