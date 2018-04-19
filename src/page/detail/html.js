@@ -2,6 +2,7 @@ const content = require('layout/index.ejs')
 const header = require('layout/header.ejs')
 const script = require('layout/script.ejs')
 const css = require('layout/css.ejs')
+const path = require('path')
 
 // console.log(util.loadMinified)
 module.exports = function(params) {
@@ -13,7 +14,8 @@ module.exports = function(params) {
         script: script({ chunks: ['manifest','zepto','detail'], chuncksEntry: params.htmlWebpackPlugin.files.chunks}),
         css: css({ chuncksEntry: params.htmlWebpackPlugin.files.chunks.detail.css }),
         layout:{
-            root:'<div class="main"></div>'
+            dirname: __dirname,
+            root: '<div class="main">' + path.join(PATH_SRC,'/page/detail/test.json')+'</div>'
         }
     });;
 }

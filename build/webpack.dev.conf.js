@@ -50,7 +50,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   plugins: [
     ...page.getHTMLPlugin(true),
     new webpack.DefinePlugin({
-      'VERSION': config.version,
       'process.env': require('../config/dev.env')
     }),
     new webpack.HotModuleReplacementPlugin(),

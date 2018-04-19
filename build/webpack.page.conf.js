@@ -27,12 +27,11 @@ let HTMLPlugin = utils.generateHTMLPlugin({
     template: function (name) {
         //限制模板文件为inde.tpl.js
         if (name === 'app') {
-            return path.resolve(__dirname, `../src/template.js`);
+            return path.resolve(__dirname, `../src/html.js`);
         } else {
-            return path.resolve(__dirname, `../src/page/${name}/template.js`);
+            return path.resolve(__dirname, `../src/page/${name}/html.js`);
         }
     }
-    // dependChunks: ['manifest', 'vendor']
 });
 
 //生成提取公用代码配置
