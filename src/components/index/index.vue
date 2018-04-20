@@ -32,11 +32,10 @@ export default {
   width: 100%;
   height: 100%;
 }
-
+$rem:100;
 .header {
-  // width: rem(750px);
-  width: 100%;
-  height: rem(100px);
+  width: rem(750);
+  height: rem(100);
   background-color: #5591ff;
   display: flex;
   flex-direction: row;
@@ -45,36 +44,36 @@ export default {
   margin:0 auto;
 }
 .icon {
-    margin-left: rem(30px);
+    margin-left: rem(30);
     font-size: 0;
-    height: rem(50px);
-    line-height: rem(50px);
+    height: rem(50);
+    line-height: rem(50);
 }
 .icon-img{
-  width: rem(50px);
-  height: rem(50px);
+  width: rem(50);
+  height: rem(50);
   display: inline-block;
   @include bg-img("../../assets/img/logo.png");
   vertical-align: top;
 }
 .icon-text{
     color: #fff;
-    font-size: rem(30px);
+    font-size: rem(30);
     font-weight: normal;
-    margin-left: rem(20px);
+    margin-left: rem(20);
 }
 .login {
   text-align: right;
   height: rem(100px);
-  line-height: rem(100px);
+  line-height: rem(100);
   font-size: 0;
   color: #fff;
-  margin-right: rem(15px);
+  margin-right: rem(15);
 }
 .login-left,
 .login-right {
-  font-size: rem(28px);
+  font-size: rem(28);
   vertical-align: middle;
-  padding: rem(10px);
+  padding: rem(10);
 }
 </style>
