@@ -34,7 +34,7 @@ export default {
 }
 $rem:100;
 .header {
-  width: rem(750);
+  width: 100%;
   height: rem(100);
   background-color: #5591ff;
   display: flex;

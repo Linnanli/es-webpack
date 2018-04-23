@@ -1,4 +1,4 @@
 import 'assets/style/reset.scss'
-import libFundebug from 'public/lib/asyncFundebug'
+import libFundebug from 'common/lib/asyncFundebug'
 
 libFundebug.init();

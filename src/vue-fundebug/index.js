@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import libFundebug from '../public/lib/asyncFundebug.js'
+import libFundebug from '../common/lib/asyncFundebug.js'
 
 //返回拼接错误信息
 function formatComponentName(vm) {

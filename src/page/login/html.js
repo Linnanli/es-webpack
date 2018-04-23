@@ -1,7 +1,7 @@
-const content = require('public/layout/index.ejs')
-const header = require('public/layout/header.ejs')
-const script = require('public/layout/script.ejs')
-const css = require('public/layout/css.ejs')
+const content = require('common/layout/index.ejs')
+const header = require('common/layout/header.ejs')
+const script = require('common/layout/script.ejs')
+const css = require('common/layout/css.ejs')
 
 module.exports = function ({ htmlWebpackPlugin: { options, files } }) {
     let { flexible } = options;

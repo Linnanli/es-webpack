@@ -2,8 +2,8 @@ const utils = require('./utils')
 const path = require('path')
 const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const dependentChunck = require('../dependent')
-const inlineScript = require('../dependent/inline-script')
+const dependentChunck = require('../lib/outer-script')
+const inlineScript = require('../lib/inline-script')
 
 
 //生成入口文件配置
