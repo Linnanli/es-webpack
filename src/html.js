@@ -12,7 +12,7 @@ module.exports = function ({ htmlWebpackPlugin: { options, files} }) {
         script: script({ chunks: ['manifest', 'vue_vue-router_axios', 'app'], chuncksEntry: files.chunks }),
         css: css({ chuncksEntry: files.chunks.app.css }),
         layout: {
-            root: `<div id="app"></div>`
+            root: `<div id="app">123123</div>`
         }
     });;
 }
